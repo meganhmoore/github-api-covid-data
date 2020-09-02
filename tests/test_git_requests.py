@@ -1,0 +1,49 @@
+import pytest
+import requests
+
+from github_api_covid_data.lib.constants import GITHUB_API_URL
+from github_api_covid_data.lib.get_github_data import get_repo_data, get_collaborator_data, get_repo_latest
+from github_api_covid_data.lib.gitclass import GitClass
+from github_api_covid_data.lib.repos import GITHUB_REPO_OBJ, JOHNS_HOPKINS_REPO_OBJ, NYTIMES_REPO_OBJ, \
+    OWID_REPO_OBJ, SELF_REPO_OBJ
+
+@pytest.fixture
+def test_repo():
+    GitClass(url='https://github.com/meganhmoore/COVID-19', owner='meganhmoore', repo='COVID-19',
+             credentials={'user':'meganhmoore', 'pass': 'blah'})
+
+
+@pytest.fixture
+def git_classes():
+    return [GITHUB_REPO_OBJ, JOHNS_HOPKINS_REPO_OBJ, NYTIMES_REPO_OBJ, OWID_REPO_OBJ]
+
+
+def test_basic_repo_access(git_classes):
+    """Test access to repos"""
+    for git_class in git_classes:
+        data = get_repo_data(git_class)
+        assert data['status'] == '200 OK'
+
+
+def test_collaborators(git_classes):
+    """Test ability to access collaborators"""
+    for git_class in git_classes:
+        if not git_class.has_credentials:
+            with pytest.raises(ValueError):
+                get_collaborator_data(git_class)
+        else:
+            resp = get_collaborator_data(git_class)
+            assert resp['status'] == '200 OK'
+
+
+def test_events(git_classes):
+    for git_class in git_classes:
+        date = get_repo_latest(git_class)
+        now_url = f'{GITHUB_API_URL}/repos/{git_class.owner}/{git_class.repo}'
+        now = requests.get(now_url).headers['date']
+        assert now > date
+
+
+
+
+
