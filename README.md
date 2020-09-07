@@ -54,3 +54,16 @@ instructions on this website: <https://docs.conda.io/en/latest/miniconda.html#in
 5. You can test that everything is installed correctly by running the test suite: `python -m pytest tests`
 6. From there you can start adding features and tests 
  
+
+## Next things I would add (with more time)
+1. Allow the user to configure their own repo that they want to push updated covid data
+    - This could be a post that creates a new GitClass object (monitored by the singleton object?), that then gets 
+    referenced by the update commands instead of defaulting to my own repo
+2. Allow the user to add new covid repos that they find and want to add data from
+    - similar to the above, but not pushed to 
+3. Allow users to update existing repos if they find new information (like new types of data/filepaths that existing 
+repos now provide)
+    - this is the use for the singleton (more stable if it was a database), which would be used to update and 
+    filepaths it should track and other info
+4. Following from #3 it would make sense to create a database to track the data we have about each repo, as well as 
+being able to load the csv data into there to have it in one shared space
