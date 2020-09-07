@@ -10,6 +10,7 @@ if __name__ == "__main__":
 
     install_requirements = [
         'requests',
+        'flask'
     ]
 
     test_requirements = [
@@ -36,5 +37,7 @@ if __name__ == "__main__":
             'test': test_requirements
         },
 
-        entry_points={}
+        entry_points={
+            'console_scripts': ["start_flask=src.start_flask:main"]
+        }
     )

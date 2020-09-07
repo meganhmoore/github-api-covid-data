@@ -1,11 +1,13 @@
+import os
 import pytest
 import requests
 
 from github_api_covid_data.lib.constants import GITHUB_API_URL
 from github_api_covid_data.lib.get_github_data import get_repo_data, get_collaborator_data, get_repo_latest
 from github_api_covid_data.lib.gitclass import GitClass
-from github_api_covid_data.lib.repos import GITHUB_REPO_OBJ, JOHNS_HOPKINS_REPO_OBJ, NYTIMES_REPO_OBJ, \
-    OWID_REPO_OBJ, SELF_REPO_OBJ
+from github_api_covid_data.lib.repos import github, hopkins, nytimes, \
+    owid
+
 
 @pytest.fixture
 def test_repo():
@@ -15,7 +17,7 @@ def test_repo():
 
 @pytest.fixture
 def git_classes():
-    return [GITHUB_REPO_OBJ, JOHNS_HOPKINS_REPO_OBJ, NYTIMES_REPO_OBJ, OWID_REPO_OBJ]
+    return [github, hopkins, nytimes, owid]
 
 
 def test_basic_repo_access(git_classes):
@@ -38,6 +40,8 @@ def test_collaborators(git_classes):
 
 def test_events(git_classes):
     for git_class in git_classes:
+        import pdb
+        pdb.set_trace()
         date = get_repo_latest(git_class)
         now_url = f'{GITHUB_API_URL}/repos/{git_class.owner}/{git_class.repo}'
         now = requests.get(now_url).headers['date']
