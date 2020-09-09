@@ -10,7 +10,10 @@ query_service = Blueprint("query_service", __name__)
 
 @query_service.route('/')
 def hello():
-    return ("Hello World!")
+    return ("Welcome! \n Try a route such as: \n /repos, \n /repos/latest_update, \n /repo/<repo_name>, "
+            "\n /repos/files, \n /repo/<repo_name>/full_file_data, \n /repo/<repo_name>/files, "
+            "\n /repo/<repo_name>/filepath/<path:filepath>, \n /repo/<repo_name>/csvs, \n /new_csvs/<repo_name>, \n"
+            "/new_csvs")
 
 
 @query_service.route('/repos', methods=['GET'])
@@ -39,7 +42,7 @@ def get_repos_latest_update():
 
 @query_service.route('/repo/<repo_name>', methods=['GET'])
 def get_repo_details(repo_name):
-    """Get the detailed information about a specifir repo"""
+    """Get the detailed information about a specific repo"""
     details = {}
     repos = RepoSingleton.get_instance().repo_map
     try:
@@ -52,7 +55,7 @@ def get_repo_details(repo_name):
 
 @query_service.route('/repos/files', methods=['GET'])
 def get_files_in_repos():
-    """Get high level directories for each repo"""
+    """Get high level directories and files for each repo"""
     details = {}
     repos = RepoSingleton.get_instance().repos
     for repo in repos:
@@ -62,6 +65,7 @@ def get_files_in_repos():
 
 @query_service.route('/repo/<repo_name>/full_file_data', methods=['GET'])
 def get_all_file_data_in_repo(repo_name: str):
+    """Get all of information about the files in the repo"""
     details = {}
     repos = RepoSingleton.get_instance().repo_map
     try:
@@ -74,6 +78,7 @@ def get_all_file_data_in_repo(repo_name: str):
 
 @query_service.route('/repo/<repo_name>/files', methods=['GET'])
 def get_file_data_in_repo(repo_name: str):
+    """Get the files in a given repo"""
     details = {}
     repos = RepoSingleton.get_instance().repo_map
     try:
@@ -86,6 +91,7 @@ def get_file_data_in_repo(repo_name: str):
 
 @query_service.route('/repo/<repo_name>/filepath/<path:filepath>', methods=['GET'])
 def get_filepath_in_repo(repo_name: str, filepath: str):
+    """Dig deeper by finding the files within subdirectories of a repo, specify the subdirectory to investigate"""
     details = {}
     repos = RepoSingleton.get_instance().repo_map
     try:
@@ -98,6 +104,7 @@ def get_filepath_in_repo(repo_name: str, filepath: str):
 
 @query_service.route('/repo/<repo_name>/csvs', methods=['GET'])
 def get_csvs_in_repo(repo_name: str):
+    """Get the CSV files in a repo to see what data is available"""
     details = {}
     repos = RepoSingleton.get_instance().repo_map
     try:

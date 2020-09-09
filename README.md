@@ -32,6 +32,7 @@ where it says <YOUR_GIT_ACCESS_KEY>.
     - you can go to `localhost:5000` and you should see the `Hello World` message
 5. You can then begin interacting with the service as desired, follow the below User Instructions to find some 
 suggested uses
+6. When you want to tear down the container you can either ctrl-c in the window for the running container, or you can `docker kill app_container`
 
 
 ## To Use
@@ -43,6 +44,20 @@ Once deployed the service will be running on `localhost:5000`
  from them)
  - `/repo/<repo_name>`: given a specific repo (from the list of repos returned from the `/repos` route, provide all of 
  the gihub API repo details)
+ - `/repos/files`: Get the directories and files in the root of each repo
+ - `/repo/<repo_name>/full_file_data`: Get the full information about each directory and file in the root of the repo 
+ (not just the name)
+ - `/repo/<repo_name>/files`: similar to `/repos/files` but just showing the data for a specific repo you are interested 
+ in
+ - `/repo/<repo_name>/filepath/<filepath>`: view files and directories at all levels of a given repo, allows the user 
+ to browse around the repo to investigate its setup
+ - `/repo/<repo_name>/csvs`: gather all of the csv files in the repo no matter where they are and if they are nested in 
+ a subdirectory
+ -`/new_csvs/<repo_name>`: gather all the csvs in a given repo, and make a record of them by making a file and pushing 
+ it to the `develop/new_data` branch of this repo (github-api-covid-data) for this date and timestamp with a commit 
+ message to indicate which repo you are tracking.
+ - `/new_csvs`: gather all the csvs for all repos being tracked, and make a record of them by making a file and pushing 
+ it to the `develop/new_data` branch of this repo (github-api-covid-data) for this date and timestamp
  
  
 ## To Develop
