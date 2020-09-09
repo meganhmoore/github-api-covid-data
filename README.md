@@ -3,10 +3,11 @@
 This project uses the GithubAPI to query a range of github repositories that contain data about covid-19. The user in 
 mind is a researcher that wants to gather covid data for their own modelling or reporting purposes. They have a range 
 of github repos that they are monitoring, and they may want to pull new data, or just investigate what is new in each 
-repo.
+repo. This service provides a range of routes so they can gather data about their sources, updates to the data, and the
+data that is available for them to work with. 
 
 ## The Tech Stack
-This is a python-flask service that is build and deployed in a docker container to allow for scalability and to be able
+This is a python-flask service that is built and deployed in a docker container to allow for scalability and to be able
 to use dependencies in a static space no matter what the underlying machine has. 
 1. Python 3.7 is used
 2. Flask is the python package for creating web apps: <https://flask.palletsprojects.com/en/1.1.x/>. The user will 
@@ -23,16 +24,19 @@ installed, and create a docker account: <https://hub.docker.com/>
 <https://docs.github.com/en/rest/overview/resources-in-the-rest-api#authentication> for instructions), create your 
 credentials and paste your username in the Dockerfile where it says <YOUR_GIT_USERNAME> and paste your git access key 
 where it says <YOUR_GIT_ACCESS_KEY>.
-    - If you do not set up credentials remove both ENV lines from the file. The service should still work, but you will 
-    be able to make limited requests to the repos.
+    - If you do not set up credentials remove both ENV lines from the file. The service should still work though it
+     might not be able to use the update routes that make updates to the repo and you will only be able to make 
+     limited requests to the repos.
 4. From the root of the cloned repository run `docker-compose up` to start up the docker containers
     - The container will continue running and logging in this window, if you open a new terminal window you can check 
     that it has successfully started by running `docker ps` and a container called `app_container` should be up and 
     running.
-    - you can go to `localhost:5000` and you should see the `Hello World` message
+    - you can go to `localhost:5000` and you should see the `Welcome` message
 5. You can then begin interacting with the service as desired, follow the below User Instructions to find some 
 suggested uses
-6. When you want to tear down the container you can either ctrl-c in the window for the running container, or you can `docker kill app_container`
+6. When you want to tear down the container you can either ctrl-c in the window for the running container, or you 
+can `docker kill app_container` from another container. Then to clean it up run `docker rm app_container` and 
+`docker image rm app_img`
 
 
 ## To Use
@@ -66,7 +70,7 @@ instructions on this website: <https://docs.conda.io/en/latest/miniconda.html#in
 2. Create a conda environment by running `conda create -n covidApp python=3.7`
 3. Activate: `conda activate covidApp`
 4. Install dependencies by running: `python setup.py develop`
-5. You can test that everything is installed correctly by running the test suite: `python -m pytest tests`
+5. You can test that everything is installed correctly by running the test suite: `python -m pytest tests/`
 6. From there you can start adding features and tests 
  
 
@@ -81,4 +85,7 @@ repos now provide)
     - this is the use for the singleton (more stable if it was a database), which would be used to update and 
     filepaths it should track and other info
 4. Following from #3 it would make sense to create a database to track the data we have about each repo, as well as 
-being able to load the csv data into there to have it in one shared space
+being able to load the csv data into there to have it in one shared space.
+5. To make it more user-friendly it would be useful to add a GUI with some dropdowns for the different repos and the 
+ability to view the csvs and actually build off of that data to visualize some of the different covid data, and how it 
+compares between the different reporters (nytimes, hopkins, etc.)
