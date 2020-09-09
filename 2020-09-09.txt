@@ -1,1 +1,0 @@
-{"github_covid_data": {"data": ["countries-aggregated.csv", "key-countries-pivoted.csv", "reference.csv", "time-series-19-covid-combined.csv", "us_confirmed.csv", "us_deaths.csv", "us_simplified.csv", "worldwide-aggregate.csv"]}}
