@@ -1,0 +1,1 @@
+{"nytimes_covid_data": {"": ["us-counties.csv", "us-states.csv", "us.csv"], "excess-deaths": ["deaths.csv"], "live": ["us-counties.csv", "us-states.csv", "us.csv"], "mask-use": ["mask-use-by-county.csv"]}}
