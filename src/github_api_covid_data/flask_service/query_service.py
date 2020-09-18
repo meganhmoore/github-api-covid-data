@@ -10,11 +10,10 @@ query_service = Blueprint("query_service", __name__)
 
 @query_service.route('/')
 def hello():
-    return ("Welcome! \n Try a route such as: \n /repos, \n /repos/latest_update, \n /repo/<repo_name>, "
+    return ("Welcome! \n Try a route such as: \n /repos, \n /repos/latest_update, \n /repo/{repo_name}, "
             "\n /repos/files, \n /repo/<repo_name>/full_file_data, \n /repo/<repo_name>/files, "
-            "\n /repo/<repo_name>/filepath/<path:filepath>, \n /repo/<repo_name>/csvs, \n /new_csvs/<repo_name>, \n"
+            "\n /repo/{repo_name}/filepath/{path:filepath}, \n /repo/{repo_name}/csvs, \n /new_csvs/{repo_name}, \n"
             "/new_csvs")
-
 
 @query_service.route('/repos', methods=['GET'])
 def get_repos():

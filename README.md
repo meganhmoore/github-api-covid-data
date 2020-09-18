@@ -25,7 +25,7 @@ installed, and create a docker account: <https://hub.docker.com/>
 credentials and paste your username in the Dockerfile where it says <YOUR_GIT_USERNAME> and paste your git access key 
 where it says <YOUR_GIT_ACCESS_KEY>.
     - If you do not set up credentials remove both ENV lines from the file. The service should still work though it
-     might not be able to use the update routes that make updates to the repo and you will only be able to make 
+     will not be able to use the update routes that make updates to the repo and you will only be able to make 
      limited requests to the repos.
 4. From the root of the cloned repository run `docker-compose up` to start up the docker containers
     - The container will continue running and logging in this window, if you open a new terminal window you can check 
@@ -42,8 +42,8 @@ can `docker kill app_container` from another container. Then to clean it up run 
 ## To Use
 Once deployed the service will be running on `localhost:5000`
 ### Available Routes:
- 
- - `/repos`: will show you the availabe repos that contain covid data
+#### Query Routes
+ - `/repos`: will show you the available repos that contain covid data
  - `/repos/latest_update`: will show you when each repo was last updated (for example, if you want to pull new data 
  from them)
  - `/repo/<repo_name>`: given a specific repo (from the list of repos returned from the `/repos` route, provide all of 
@@ -57,6 +57,7 @@ Once deployed the service will be running on `localhost:5000`
  to browse around the repo to investigate its setup
  - `/repo/<repo_name>/csvs`: gather all of the csv files in the repo no matter where they are and if they are nested in 
  a subdirectory
+ ####Update Routes (require credentials)
  -`/new_csvs/<repo_name>`: gather all the csvs in a given repo, and make a record of them by making a file and pushing 
  it to the `develop/new_data` branch of this repo (github-api-covid-data) for this date and timestamp with a commit 
  message to indicate which repo you are tracking.
