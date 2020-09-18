@@ -58,7 +58,7 @@ Once deployed the service will be running on `localhost:5000`
  - `/repo/<repo_name>/csvs`: gather all of the csv files in the repo no matter where they are and if they are nested in 
  a subdirectory
  
- ####Update Routes (require credentials)
+ #### Update Routes (require credentials)
  - `/new_csvs/<repo_name>`: gather all the csvs in a given repo, and make a record of them by making a file and pushing 
  it to the `develop/new_data` branch of this repo (github-api-covid-data) for this date and timestamp with a commit 
  message to indicate which repo you are tracking.
